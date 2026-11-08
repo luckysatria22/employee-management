@@ -166,5 +166,22 @@ class EmployeeModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    // METHOD: Memanggil table function get_employees_by_department
+    public function getEmployeesByDepartment($dept_name = 'ALL') {
+        $query = "select * from get_employees_by_department(:dept_name)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':dept_name', $dept_name);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    // METHOD: Memanggil table function get_department_summary (Tugas 2)
+    public function getDepartmentSummary() {
+        $query = "select * from get_department_summary()";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>

@@ -21,5 +21,7 @@
 <a href="index.php?action=salary_stats" class="nav-link">Statistik Gaji</a>
 <a href="index.php?action=tenure_stats" class="nav-link">Statistik Masa Kerja</a>
 <a href="index.php?action=employee_overview" class="nav-link">Ringkasan Karyawan</a>
+<a href="index.php?action=filter_department" class="nav-link">Filter Departemen (Function)</a>
+<a href="index.php?action=department_summary" class="nav-link">Ringkasan Departemen (Function)</a>
 </nav>
 <main class="main-content">

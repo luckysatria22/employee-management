@@ -110,6 +110,17 @@ switch ($action) {
         $overview = $employeeModel->getEmployeeOverview();
         include 'views/employee_overview.php';
         break;
+
+    case 'filter_department':
+        $dept_name = $_GET['dept_name'] ?? 'ALL';
+        $result_employees = $employeeModel->getEmployeesByDepartment($dept_name);
+        include 'views/filter_department.php';
+        break;
+
+    case 'department_summary':
+        $dept_summary = $employeeModel->getDepartmentSummary();
+        include 'views/department_summary.php';
+        break;
         
     default:
         $dashboard = $employeeModel->getDashboardSummary();
