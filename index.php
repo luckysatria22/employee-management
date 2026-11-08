@@ -105,6 +105,11 @@ switch ($action) {
         $employees_tenure = $employeeModel->getEmployeesWithTenure();
         include 'views/tenure_stats.php';
         break;
+
+    case 'employee_overview':
+        $overview = $employeeModel->getEmployeeOverview();
+        include 'views/employee_overview.php';
+        break;
         
     default:
         $dashboard = $employeeModel->getDashboardSummary();

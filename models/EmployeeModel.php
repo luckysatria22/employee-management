@@ -154,5 +154,17 @@ class EmployeeModel {
         $stmt->execute();
         return $stmt;
     }
+
+    // METHOD TAMBAHAN: Get ringkasan karyawan secara keseluruhan untuk Tugas 1
+    public function getEmployeeOverview() {
+        $query = "select 
+                    count(*) as total_employees,
+                    sum(salary) as total_monthly_salary,
+                    round(avg(extract(year from age(current_date, hire_date))), 1) as avg_years_of_service
+                  from employees";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>
