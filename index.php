@@ -95,6 +95,11 @@ switch ($action) {
         exit;
         break;
 
+    case 'salary_stats':
+        $salary_stats = $employeeModel->getSalaryStats();
+        include 'views/salary_stats.php';
+        break;
+        
     default:
         $dashboard = $employeeModel->getDashboardSummary();
         include 'views/dashboard.php';

@@ -101,5 +101,13 @@ class EmployeeModel {
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
+
+    // METHOD TAMBAHAN: Get statistik gaji per departemen untuk Tugas 1
+    public function getSalaryStats() {
+        $query = "select department, round(avg(salary), 2) as avg_salary, max(salary) as max_salary, min(salary) as min_salary, count(*) as total_employees from employees group by department order by avg_salary desc";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>
