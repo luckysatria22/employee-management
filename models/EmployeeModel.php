@@ -109,5 +109,50 @@ class EmployeeModel {
         $stmt->execute();
         return $stmt;
     }
+
+    // METHOD TAMBAHAN: Get statistik masa kerja karyawan untuk Tugas 1 (Agregat)
+    public function getTenureStats() {
+        $query = "select 
+                    case 
+                        when extract(year from age(current_date, hire_date)) < 1 then 'Junior (< 1 tahun)'
+                        when extract(year from age(current_date, hire_date)) between 1 and 3 then 'Middle (1-3 tahun)'
+                        else 'Senior (> 3 tahun)'
+                    end as experience_category,
+                    count(*) as total_employees,
+                    string_agg(concat(first_name, ' ', last_name), ', ' order by first_name asc) as employee_names
+                  from employees 
+                  group by 1 
+                  order by 
+                    case 
+                        when min(extract(year from age(current_date, hire_date))) < 1 then 1
+                        when min(extract(year from age(current_date, hire_date))) <= 3 then 2
+                        else 3
+                    end";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    // METHOD TAMBAHAN: Get daftar setiap karyawan beserta masa kerjanya
+    public function getEmployeesWithTenure() {
+        $query = "select 
+                    id,
+                    concat(first_name, ' ', last_name) as full_name,
+                    department,
+                    position,
+                    hire_date,
+                    extract(year from age(current_date, hire_date))::int as tenure_years,
+                    extract(month from age(current_date, hire_date))::int as tenure_months,
+                    case 
+                        when extract(year from age(current_date, hire_date)) < 1 then 'Junior'
+                        when extract(year from age(current_date, hire_date)) between 1 and 3 then 'Middle'
+                        else 'Senior'
+                    end as experience_category
+                  from employees 
+                  order by hire_date asc";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>

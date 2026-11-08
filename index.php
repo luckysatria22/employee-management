@@ -99,6 +99,12 @@ switch ($action) {
         $salary_stats = $employeeModel->getSalaryStats();
         include 'views/salary_stats.php';
         break;
+
+    case 'tenure_stats':
+        $tenure_stats = $employeeModel->getTenureStats();
+        $employees_tenure = $employeeModel->getEmployeesWithTenure();
+        include 'views/tenure_stats.php';
+        break;
         
     default:
         $dashboard = $employeeModel->getDashboardSummary();
